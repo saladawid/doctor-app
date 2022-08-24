@@ -1,7 +1,8 @@
 import {Patient} from '../models/PatientModel.js';
 import asyncHandler from "express-async-handler";
 import {ValidationError} from '../middleware/errorMiddleware.js';
-import {date} from '../utils/currentDate.js';
+import {date, dateAndHour} from '../utils/currentDate.js';
+import {scoreTest} from '../utils/scoreTest.js';
 
 
 
@@ -89,3 +90,48 @@ export const getPatient = asyncHandler(async (req, res) => {
 });
 
 
+export const saveTestPatient = asyncHandler(async (req, res) => {
+    const {id, test} = req.params;
+    const {eye, verbal, motor} = req.body;
+
+    if ((test === 'glasgow-test') && (eye === 0 || verbal === 0 || motor === 0) ) {
+        res.status(422);
+        throw new ValidationError('Check the appropriate boxes');
+    }
+
+    const newTest = new Test({
+        ...req.body,
+        patientId: id,
+        date: dateAndHour(),
+        score: scoreTest(req.body),
+
+    });
+
+    await newTest.save();
+
+    res.status(200).json(newTest);
+
+});
+
+export const getTestPatient = asyncHandler(async (req, res) => {
+    const {id} = req.params;
+
+    const test = await Test.find({patientId: id}).populate('patientId').exec();
+
+    res.json(test);
+});
+
+export const deleteTestPatient = asyncHandler(async (req, res) => {
+
+    const test = await Test.findById(req.params.test);
+    console.log(req.params.test);
+
+    if (test) {
+        await test.remove();
+        res.json({message: 'Test removed'});
+    } else {
+        res.status(404);
+        throw new ValidationError('Test not found');
+    }
+    res.json(test);
+});
