@@ -4,6 +4,7 @@ import {config} from './config/config.js';
 import {connectDB} from './config/db.js';
 import {patientRoutes} from './routes/patientRoutes.js';
 import {handleError, notFound} from './middleware/errorMiddleware.js';
+import {userRoutes} from './routes/userRoutes.js';
 
 connectDB();
 
@@ -16,7 +17,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/patients', patientRoutes);
-
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(handleError);

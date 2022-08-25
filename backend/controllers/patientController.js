@@ -4,8 +4,6 @@ import {ValidationError} from '../middleware/errorMiddleware.js';
 import {date, dateAndHour} from '../utils/currentDate.js';
 import {scoreTest} from '../utils/scoreTest.js';
 
-
-
 export const createPatient = asyncHandler(async (req, res) => {
     const {name, surname, dateOfAdmission} = req.body;
 
