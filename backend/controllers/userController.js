@@ -3,11 +3,13 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import {ValidationError} from '../middleware/errorMiddleware.js';
 import {generateToken} from '../utils/generateToken.js';
+import {Message} from '../models/MessageModel.js';
+
 
 
 export const registerUser = asyncHandler(async (req, res, next) => {
 
-    const {name, surname, email, password} = req.body;
+    const {name, surname, email, password, isAdmin} = req.body;
 
     const userExists = await User.findOne({email});
 
@@ -27,10 +29,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     // const hashPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
-        name,
-        surname,
-        email,
-        password,
+        name, surname, email, password, isAdmin,
     });
 
     await user.save();
@@ -54,10 +53,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
     if (matchPassword) {
         res.json({
-            email: user.email,
-            name: user.name,
-            surname: user.surname,
-            token: generateToken(user._id),
+            email: user.email, name: user.name, surname: user.surname, token: generateToken(user._id),
         });
     } else {
         res.status(401);
@@ -101,6 +97,11 @@ export const updateUser = asyncHandler(async (req, res) => {
         }
     }
 
+    if (user._id.toString() === "63066596001fdb3dcb487bb7") {
+        res.status(422);
+        throw new ValidationError('Admin profile cannot be updated');
+    }
+
     if (user) {
         user.name = name;
         user.surname = surname;
@@ -109,12 +110,11 @@ export const updateUser = asyncHandler(async (req, res) => {
         if (password) {
             user.password = password;
         }
+
         const updatedUser = await user.save();
 
         res.status(200).json({
-            name: updatedUser.name,
-            surname: updatedUser.surname,
-            email: updatedUser.email,
+            name: updatedUser.name, surname: updatedUser.surname, email: updatedUser.email,
         });
     } else {
         res.status(404);
@@ -134,9 +134,7 @@ export const getDoctor = asyncHandler(async (req, res) => {
 
     if (doctor) {
         res.status(200).json({
-            email: doctor.email,
-            name: doctor.name,
-            surname: doctor.surname,
+            email: doctor.email, name: doctor.name, surname: doctor.surname,
         });
     } else {
         res.status(404);
@@ -148,11 +146,57 @@ export const deleteDoctor = asyncHandler(async (req, res) => {
 
     const doctor = await User.findById(req.params.id);
 
+    if (doctor._id.toString() === "63066596001fdb3dcb487bb7") {
+        res.status(422);
+        throw new ValidationError('Admin profile cannot be deleted');
+    }
+
     if (doctor) {
         await doctor.remove();
-        res.json({message: 'Doctor removed'});
+        res.json({
+            doctor,
+            message: 'Doctor removed'
+        });
     } else {
         res.status(404);
-        throw new ValidationError('Doctor not found');
     }
+});
+
+export const sendMessage = asyncHandler(async (req, res) => {
+    const {message} = req.body;
+    const senderId = await User.findById(req.user._id).select('name surname');
+    const recipientId = await User.findById(req.params.id).select('name surname');
+
+    const newMessage = new Message({
+        message,
+        recipientId,
+        senderId,
+    });
+    await newMessage.save();
+
+    res.status(200).json(newMessage);
+});
+
+export const getMessages = asyncHandler(async (req, res) => {
+
+    const messages = await Message.find({recipientId: req.user._id}).populate('senderId', 'email').exec();
+
+    // const data = messages.map(val => {
+    //     return {
+    //         message: val.message,
+    //         email: val.senderId.email,
+    //     };
+    // });
+    res.status(200).json(messages);
+});
+
+export const taskIsDone = asyncHandler(async (req, res) => {
+
+    const message = await Message.findById(req.params.id);
+
+    message.complete = !message.complete;
+
+    message.save();
+
+    res.json(message)
 });
