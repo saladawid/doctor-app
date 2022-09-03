@@ -17,7 +17,7 @@ export const userRoutes = express.Router();
 userRoutes.post("/:id/message",protect, sendMessage);
 //GET MESSAGES
 userRoutes.get("/messages",protect, getMessages);
-//
+//COMPLETED TASK
 userRoutes.get("/messages/:id", taskIsDone);
 
 //REGISTER USER
