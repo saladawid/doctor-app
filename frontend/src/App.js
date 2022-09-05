@@ -60,6 +60,17 @@ function App() {
                 <Header/>
                 <Routes>
                     <Route path="/" element={<HomeScreen/>}/>
+                    <Route path="/patients" element={<PatientsScreen/>}/>
+                    <Route path="/patients/:id" element={<PatientProfileScreen/>}/>
+                    <Route path="/add-patient" element={<PatientAddScreen/>}/>
+                    <Route path="/register" element={<RegisterScreen/>}/>
+                    <Route path="/login" element={<LoginScreen/>}/>
+                    <Route path="/profile" element={<UserProfileScreen/>}/>
+                    <Route path="patients/:id/:test" element={<TestScreen/>}/>
+                    <Route path="patients/:id/tests" element={<TestsScreen/>}/>
+                    <Route path="/doctors" element={<DoctorsScreen/>}/>
+                    <Route path="/doctors/:id/message" element={<SendMessageScreen/>}/>
+                    <Route path="/messages" element={<MessagesScreen/>}/>
                 </Routes>
             </BrowserRouter>
         </Context.Provider>
