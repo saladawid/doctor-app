@@ -6,7 +6,6 @@ import {generateToken} from '../utils/generateToken.js';
 import {Message} from '../models/MessageModel.js';
 
 
-
 export const registerUser = asyncHandler(async (req, res, next) => {
 
     const {name, surname, email, password, isAdmin} = req.body;
@@ -155,7 +154,7 @@ export const deleteDoctor = asyncHandler(async (req, res) => {
         await doctor.remove();
         res.json({
             doctor,
-            message: 'Doctor removed'
+            message: 'Doctor removed',
         });
     } else {
         res.status(404);
@@ -190,6 +189,21 @@ export const getMessages = asyncHandler(async (req, res) => {
     res.status(200).json(messages);
 });
 
+export const deleteMessage = asyncHandler(async (req, res) => {
+
+    const message = await Message.findById(req.params.id);
+
+    if (message) {
+        await message.remove();
+        res.json({
+            message,
+        });
+    } else {
+        res.status(404);
+        throw new ValidationError('Message not found');
+    }
+});
+
 export const taskIsDone = asyncHandler(async (req, res) => {
 
     const message = await Message.findById(req.params.id);
@@ -198,5 +212,5 @@ export const taskIsDone = asyncHandler(async (req, res) => {
 
     message.save();
 
-    res.json(message)
+    res.json(message);
 });

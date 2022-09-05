@@ -1,15 +1,19 @@
 import express from 'express';
 import {
     deleteDoctor,
+    deleteMessage,
     getDoctor,
-    getDoctors, getMessages,
+    getDoctors,
+    getMessages,
     loginUser,
     profileUser,
-    registerUser, sendMessage, taskIsDone,
+    registerUser,
+    sendMessage,
+    taskIsDone,
     updateUser,
 } from '../controllers/userController.js';
-import {admin, protect} from '../middleware/authMiddleware.js';
 
+import {admin, protect} from '../middleware/authMiddleware.js';
 
 export const userRoutes = express.Router();
 
@@ -17,8 +21,11 @@ export const userRoutes = express.Router();
 userRoutes.post("/:id/message",protect, sendMessage);
 //GET MESSAGES
 userRoutes.get("/messages",protect, getMessages);
-//COMPLETED TASK
-userRoutes.get("/messages/:id", taskIsDone);
+//DELETE MESSAGE
+userRoutes.delete("/messages/:id",protect, deleteMessage);
+
+// TASK IS DONE
+userRoutes.get("/messages/:id",protect, taskIsDone);
 
 //REGISTER USER
 userRoutes.post("/", registerUser);
@@ -34,7 +41,7 @@ userRoutes.route("/profile")
 //GET DOCTORS
 userRoutes.get("/", protect, getDoctors);
 //GET DOCTOR
-userRoutes.get("/:id", getDoctor);
-//DELETE
+userRoutes.get("/:id", protect, getDoctor);
+//DELETE DOCTOR
 userRoutes.delete("/:id", protect, admin, deleteDoctor);
 
