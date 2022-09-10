@@ -7,7 +7,9 @@ import {handleError, notFound} from './middleware/errorMiddleware.js';
 import {userRoutes} from './routes/userRoutes.js';
 import {protect} from './middleware/authMiddleware.js';
 import path from 'path';
+import dotenv from 'dotenv';
 
+dotenv.config();
 connectDB();
 
 const app = express();
