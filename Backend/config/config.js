@@ -4,6 +4,6 @@ dotenv.config();
 
 export const config = {
     port: process.env.PORT || 3001,
-    database: process.env.DATABASE,
+    database: "mongodb+srv://dawid:lara1989@app-doctor.fcntr.mongodb.net/appdoctor?retryWrites=true&w=majority",
     cors: process.env.CORS_ORIGIN,
 };
