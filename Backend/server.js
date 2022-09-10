@@ -7,9 +7,8 @@ import {handleError, notFound} from './middleware/errorMiddleware.js';
 import {userRoutes} from './routes/userRoutes.js';
 import {protect} from './middleware/authMiddleware.js';
 import path from 'path';
-import dotenv from 'dotenv';
 
-dotenv.config();
+
 connectDB();
 
 const app = express();
@@ -25,6 +24,7 @@ app.use('/api/users', userRoutes);
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();
+console.log(__dirname);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/Frontend/build")));
