@@ -1,0 +1,35 @@
+body {
+    height: 100vmin;
+}
+
+#root {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.form-pointer :hover {
+    cursor: pointer;
+}
+
+.icon-main {
+    font-size: 50px;
+    color: white;
+    margin-right: 10px;
+}
+
+.icon {
+    font-size: 23px;
+
+}
+
+@media only screen and (max-width: 767.5px) {
+    .icon {
+        display: none
+    }
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
