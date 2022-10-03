@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node Backend/server",
-    "server": "nodemon Backend/server",
+    "server": "npx nodemon Backend/server",
     "client": "npm start --prefix Frontend",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Frontend && npm run build --prefix Frontend"
   },
@@ -21,8 +21,5 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mongoose": "^6.3.8"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.6"
   }
 }
