@@ -8,7 +8,6 @@
     "start": "node Backend/server",
     "server": "nodemon Backend/server",
     "client": "npm start --prefix Frontend",
-
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Frontend && npm run build --prefix Frontend"
   },
   "author": "",

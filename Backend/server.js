@@ -8,7 +8,6 @@ import {userRoutes} from './routes/userRoutes.js';
 import {protect} from './middleware/authMiddleware.js';
 import path from 'path';
 
-
 connectDB();
 
 const app = express();
