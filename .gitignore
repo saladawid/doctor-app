@@ -1,6 +1,6 @@
 /node_modules
 node_modules/
-/Frontend/node_modules/
+/frontend/node_modules/
 .envgit
 .env
 
@@ -14,7 +14,7 @@ node_modules/
 
 # production
 /build
-/Frontend/build
+/frontend/build
 
 # misc
 .DS_Store
