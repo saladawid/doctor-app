@@ -1,26 +1,25 @@
 {
-  "name": "doctor-app",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "application for patient management",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "npx nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "dawidsalamon",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
-    "mongoose": "^6.5.2"
+    "mongoose": "^6.3.8"
   }
 }

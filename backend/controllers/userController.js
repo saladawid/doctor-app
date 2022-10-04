@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import {ValidationError} from '../middleware/errorMiddleware.js';
 import {generateToken} from '../utils/generateToken.js';
 import {Message} from '../models/MessageModel.js';
+import {Test} from '../models/TestModel.js';
 
 
 export const registerUser = asyncHandler(async (req, res, next) => {
@@ -76,7 +77,6 @@ export const profileUser = asyncHandler(async (req, res) => {
         throw new ValidationError('User not found');
     }
 });
-
 
 export const updateUser = asyncHandler(async (req, res) => {
 
@@ -162,6 +162,7 @@ export const deleteDoctor = asyncHandler(async (req, res) => {
 });
 
 export const sendMessage = asyncHandler(async (req, res) => {
+
     const {message} = req.body;
     const senderId = await User.findById(req.user._id).select('name surname');
     const recipientId = await User.findById(req.params.id).select('name surname');
