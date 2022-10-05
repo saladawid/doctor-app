@@ -3,10 +3,6 @@ import {Container, Navbar, Nav} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Context} from '../App';
 import {GiPlagueDoctorProfile} from 'react-icons/gi';
-import {BiLogIn, BiLogOut} from 'react-icons/bi';
-import {MdAppRegistration} from 'react-icons/md';
-import {CgProfile} from 'react-icons/cg';
-
 
 export const Header = () => {
     const {userLog, setUserLog, loggedUser} = useContext(Context);
@@ -19,11 +15,11 @@ export const Header = () => {
 
     const logOut = () => {
         localStorage.removeItem("user");
-        setUserLog(null);
+        setUserLog(false);
     };
 
     return (
-        <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect sticky="top">
+        <Navbar bg="black" variant="dark" expand="md" collapseOnSelect sticky="top">
             <Container>
                 <GiPlagueDoctorProfile className="icon-main"/>
                 <LinkContainer to="/">
@@ -31,9 +27,8 @@ export const Header = () => {
                 </LinkContainer>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-
-                    <Nav className="align-items-center w-100 justify-content-between">
-                        <div className="d-md-inline-flex">
+                    <Nav className="d-flex justify-content-between w-100">
+                        <div className="d-md-inline-flex text-center">
                             <LinkContainer to="/patients">
                                 <Nav.Link>Patients</Nav.Link>
                             </LinkContainer>
@@ -44,36 +39,31 @@ export const Header = () => {
                                 <Nav.Link>All messages</Nav.Link>
                             </LinkContainer>
                         </div>
-
-                        <div className="d-md-inline-flex">
-                            {userLog ? (
-                                    <>
-
-                                        <LinkContainer to="/profile">
-                                            <Nav.Link>Profile <CgProfile className="icon"/></Nav.Link>
-                                        </LinkContainer>
-                                        <LinkContainer to="/login" onClick={logOut}>
-                                            <Nav.Link>Log out <BiLogOut className="icon"/></Nav.Link>
-                                        </LinkContainer>
-
-                                    </>
-                                ) :
-                                (
-                                    <>
-                                        <LinkContainer to="/register">
-                                            <Nav.Link>Registration <MdAppRegistration className="icon"/></Nav.Link>
-                                        </LinkContainer>
-                                        <LinkContainer to="/login">
-                                            <Nav.Link>Log in <BiLogIn className="icon"/></Nav.Link>
-                                        </LinkContainer>
-                                    </>
-                                )
-                            }
-                        </div>
+                        {userLog ?
+                            (
+                                <div className="d-md-inline-flex text-center">
+                                    <LinkContainer to="/profile">
+                                        <Nav.Link>Profile</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/login" onClick={logOut}>
+                                        <Nav.Link>Log out</Nav.Link>
+                                    </LinkContainer>
+                                </div>
+                            ) :
+                            (
+                                <div className="d-md-inline-flex text-center">
+                                    <LinkContainer to="/register">
+                                        <Nav.Link>Registration</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/login">
+                                        <Nav.Link>Log in</Nav.Link>
+                                    </LinkContainer>
+                                </div>
+                            )
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    )
-        ;
+    );
 };
