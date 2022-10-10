@@ -91,9 +91,7 @@ export const TestsScreen = () => {
                             <td>{test.date}</td>
                             <td>
                                 <div className="d-flex justify-content-between">
-                                    {/*<Link to={`${test._id}`}>*/}
-                                    {/*    <Button size="sm" variant="dark" className="btn">View</Button>*/}
-                                    {/*</Link>*/}
+
                                     <Button onClick={handleShow}
                                             variant="dark"
                                             size="sm">Delete</Button>

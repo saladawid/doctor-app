@@ -11,7 +11,6 @@ export const PatientsScreen = () => {
         setUserLog,
         patients,
         setPatients,
-        error,
         setError,
         loading,
         setLoading,

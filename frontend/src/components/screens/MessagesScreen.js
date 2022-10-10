@@ -22,7 +22,6 @@ export const MessagesScreen = () => {
     } = useContext(Context);
 
     const [messages, setMessages] = useState([]);
-    const [statusBtn, setStatusBtn] = useState(false);
 
     const handleClose = () => {
         setShowModal(false);
