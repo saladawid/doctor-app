@@ -10,9 +10,6 @@ export const MessagesScreen = () => {
     const {
         userLog,
         setUserLog,
-        patients,
-        setPatients,
-        error,
         setError,
         loading,
         setLoading,
@@ -21,7 +18,7 @@ export const MessagesScreen = () => {
         setShowModal,
         id,
         setId,
-        resultInfo,
+
     } = useContext(Context);
 
     const [messages, setMessages] = useState([]);
