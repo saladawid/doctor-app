@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import {ValidationError} from '../middleware/errorMiddleware.js';
 import {generateToken} from '../utils/generateToken.js';
 import {Message} from '../models/MessageModel.js';
-import {Test} from '../models/TestModel.js';
 
 
 export const registerUser = asyncHandler(async (req, res, next) => {

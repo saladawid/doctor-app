@@ -34,6 +34,7 @@ export const DoctorsScreen = () => {
 
     const getDoctors = async () => {
         try {
+            setError(false);
             setLoading(true);
 
             loggedUser && setUserLog(true);

@@ -2,11 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import {config} from './config/config.js';
 import {connectDB} from './config/db.js';
-import {patientRoutes} from './routes/patientRoutes.js';
 import {handleError, notFound} from './middleware/errorMiddleware.js';
 import {userRoutes} from './routes/userRoutes.js';
+import {patientRoutes} from './routes/patientRoutes.js';
 import {protect} from './middleware/authMiddleware.js';
 import path from 'path';
+import {homeRoutes} from './routes/homeRoutes.js';
 
 connectDB();
 
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(express.json());
 
+app.use('/api/home', homeRoutes);
 app.use('/api/patients', protect, patientRoutes);
 app.use('/api/users', userRoutes);
 
