@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Container} from 'react-bootstrap';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
@@ -33,23 +33,15 @@ export const HomeScreen = () => {
     };
 
     useEffect(() => {
-        getData();
+        getData()
     }, []);
 
 
     const getData = async () => {
-
         const res = await fetch(`${API_URL}api/home`);
         const data = await res.json();
-
-        if (!res.ok) {
-
-        } else {
-            setChartData(data);
-            console.log(data);
-        }
+        setChartData(data);
     };
-
 
     return (
         <Container>

@@ -5,7 +5,6 @@ import {PatientsScreen} from './components/screens/PatientsScreen';
 import {PatientProfileScreen} from './components/screens/PatientProfileScreen';
 import {RegisterScreen} from './components/screens/RegisterScreen';
 import {LoginScreen} from './components/screens/LoginScreen';
-import {createContext, useState} from 'react';
 import {UserProfileScreen} from './components/screens/UserProfileScreen';
 import {TestsScreen} from './components/screens/TestsScreen';
 import {Header} from './components/Header';

@@ -103,6 +103,7 @@ export const saveTestPatient = asyncHandler(async (req, res) => {
         res.status(422);
         throw new ValidationError('Check the appropriate boxes');
     }
+    console.log(req.body);
 
     const newTest = new Test({
         ...req.body,

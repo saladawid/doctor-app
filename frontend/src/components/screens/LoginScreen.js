@@ -55,6 +55,7 @@ export const LoginScreen = () => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                         type="email"
+                        placeholder="admin@admin.com"
                         value={user.email}
                         onChange={e => setUser(user => ({
                             ...user,
@@ -64,6 +65,7 @@ export const LoginScreen = () => {
                 <Form.Group className="mb-3" controlId="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password"
+                                  placeholder="admin"
                                   autoComplete="on"
                                   value={user.password}
                                   onChange={e => setUser(user => ({

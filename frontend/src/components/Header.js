@@ -11,7 +11,7 @@ export const Header = () => {
         if (loggedUser) {
             setUserLog(true);
         }
-    }, [setUserLog]);
+    }, [setUserLog, loggedUser]);
 
     const logOut = () => {
         localStorage.removeItem("user");

@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {Alert, Button, Card, Container, Spinner, Table} from 'react-bootstrap';
+import {Button, Card, Container, Spinner} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {Context} from '../../App';
 

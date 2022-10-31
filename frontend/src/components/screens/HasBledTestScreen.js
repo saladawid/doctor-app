@@ -24,7 +24,6 @@ export const HasBledTestScreen = ({id, test}) => {
         setDisabledBtn(false);
     }, []);
 
-
     const change = (e) => setAnswerTest(answerTest => ({
         ...answerTest,
         [e.target.name]: Number(e.target.value),

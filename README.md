@@ -1,9 +1,10 @@
 # App Doctor
 
 ### Simple application for patient management.
+### Demo: https://dashboard-doctor.herokuapp.com
 
 ## Features
-# User registration.
+#### User registration.
 #### User login.
 #### Adding a patient.
 #### Editing patient data.
@@ -52,3 +53,11 @@ npm run server
 cd frontend
 npm run build
 ```
+
+## Sample User Logins
+```
+login: admin@admin.com (Admin)
+password: admin
+
+test@test.com (Customer)
+12345
