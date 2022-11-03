@@ -8,6 +8,7 @@ import {RemoveModal} from '../RemoveModal';
 export const TestsScreen = () => {
     const {setUserLog, showModal, setShowModal} = useContext(Context);
     const [testsResults, setTestsResults] = useState([]);
+    const [idTest, setIdTest] = useState('')
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
     const loggedUser = JSON.parse(localStorage.getItem("user"));
@@ -92,16 +93,20 @@ export const TestsScreen = () => {
                             <td>
                                 <div className="d-flex justify-content-between">
 
-                                    <Button onClick={handleShow}
+                                    <Button onClick={() => {
+                                        handleShow();
+                                        setIdTest(test._id);
+                                    }}
                                             variant="dark"
                                             size="sm">Delete</Button>
                                 </div>
                             </td>
-                            <RemoveModal showModal={showModal} handleClose={handleClose}
-                                         handleDelete={() => deleteTest(test._id)} descriptionBtn={'test'}/>
+
                         </tr>))}
                     </tbody>
                 </Table>
+                <RemoveModal showModal={showModal} handleClose={handleClose}
+                             handleDelete={() => deleteTest(idTest)} descriptionBtn={'test'}/>
             </Container>
         </>);
 

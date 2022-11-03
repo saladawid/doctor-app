@@ -6,7 +6,6 @@ import {handleError, notFound} from './middleware/errorMiddleware.js';
 import {userRoutes} from './routes/userRoutes.js';
 import {patientRoutes} from './routes/patientRoutes.js';
 import {protect} from './middleware/authMiddleware.js';
-import path from 'path';
 import {homeRoutes} from './routes/homeRoutes.js';
 
 connectDB();
@@ -22,23 +21,6 @@ app.use(express.json());
 app.use('/api/home', homeRoutes);
 app.use('/api/patients', protect, patientRoutes);
 app.use('/api/users', userRoutes);
-
-// --------------------------deployment------------------------------
-const __dirname = path.resolve();
-console.log(__dirname);
-
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "/frontend/build")));
-
-    app.get("*", (req, res) =>
-        res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")),
-    );
-} else {
-    app.get("/", (req, res) => {
-        res.send("API is running..");
-    });
-}
-// --------------------------deployment------------------------------
 
 app.use(notFound);
 app.use(handleError);
