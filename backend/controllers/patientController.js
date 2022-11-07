@@ -23,6 +23,7 @@ export const createPatient = asyncHandler(async (req, res) => {
         dateOfAdmission: date(dateOfAdmission),
         user: req.user,
     });
+
     await newPatient.save();
 
     res.status(200).json(newPatient);
@@ -59,7 +60,6 @@ export const updatePatient = asyncHandler(async (req, res) => {
 });
 
 export const deletePatient = asyncHandler(async (req, res) => {
-
     const patient = await Patient.findById(req.params.id);
 
     if (patient) {
@@ -67,7 +67,7 @@ export const deletePatient = asyncHandler(async (req, res) => {
 
         res.json({
             patient,
-            message: 'Patient removed'
+            message: 'Patient removed',
         });
     } else {
         res.status(404);
@@ -76,14 +76,12 @@ export const deletePatient = asyncHandler(async (req, res) => {
 });
 
 export const getPatients = asyncHandler(async (req, res) => {
-
     const patients = await Patient.find().populate('user', 'email').exec();
 
     res.status(200).json(patients);
 });
 
 export const getPatient = asyncHandler(async (req, res) => {
-
     const patient = await Patient.findById({_id: req.params.id});
 
     if (patient) {
@@ -103,21 +101,17 @@ export const saveTestPatient = asyncHandler(async (req, res) => {
         res.status(422);
         throw new ValidationError('Check the appropriate boxes');
     }
-    console.log(req.body);
 
     const newTest = new Test({
         ...req.body,
         patientId: id,
         date: dateAndHour(),
         score: scoreTest(req.body),
-
     });
 
     await newTest.save();
 
     res.status(200).json(newTest);
-
-
 });
 
 export const getTestPatient = asyncHandler(async (req, res) => {
@@ -136,7 +130,7 @@ export const deleteTestPatient = asyncHandler(async (req, res) => {
         await test.remove();
         res.json({
             test,
-            message: 'Test removed'
+            message: 'Test removed',
         });
     } else {
         res.status(404);

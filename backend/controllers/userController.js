@@ -1,13 +1,12 @@
-import {User} from '../models/UserModel.js';
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
+import {User} from '../models/UserModel.js';
+import {Message} from '../models/MessageModel.js';
 import {ValidationError} from '../middleware/errorMiddleware.js';
 import {generateToken} from '../utils/generateToken.js';
-import {Message} from '../models/MessageModel.js';
 
 
 export const registerUser = asyncHandler(async (req, res, next) => {
-
     const {name, surname, email, password, isAdmin} = req.body;
 
     const userExists = await User.findOne({email});
@@ -38,7 +37,6 @@ export const registerUser = asyncHandler(async (req, res, next) => {
 
 
 export const loginUser = asyncHandler(async (req, res) => {
-
     const {email, password} = req.body;
 
     const user = await User.findOne({email});
@@ -62,7 +60,6 @@ export const loginUser = asyncHandler(async (req, res) => {
 
 
 export const profileUser = asyncHandler(async (req, res) => {
-
     const user = await User.findById(req.user._id);
 
     if (user) {
@@ -78,7 +75,6 @@ export const profileUser = asyncHandler(async (req, res) => {
 });
 
 export const updateUser = asyncHandler(async (req, res) => {
-
     const {name, surname, email, password} = req.body;
 
     const user = await User.findById(req.user._id);
@@ -87,7 +83,6 @@ export const updateUser = asyncHandler(async (req, res) => {
         res.status(422);
         throw new ValidationError('Email is required');
     }
-
     if (password) {
         if (password.length <= 4) {
             res.status(422);

@@ -8,7 +8,6 @@ import {
     saveTestPatient,
     getTestPatient,
     deleteTestPatient,
-
 } from '../controllers/patientController.js';
 
 export const patientRoutes = express.Router();
@@ -23,7 +22,6 @@ patientRoutes.post("/", createPatient);
 patientRoutes.put("/:id", updatePatient);
 //DELETE PATIENT
 patientRoutes.delete("/:id", deletePatient);
-
 
 //SAVE TEST PATIENT
 patientRoutes.post("/:id/:test", saveTestPatient);
