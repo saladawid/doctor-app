@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Alert, Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import {API_URL} from '../../utils/url';
-import {Context} from '../../App';
+import {API_URL} from '../utils/url';
+import {Context} from '../App';
 
-export const PatientAddScreen = () => {
+export const NewPatientScreen = () => {
     const {resultInfo, setResultInfo, error, setError, loggedUser} = useContext(Context);
     const [patient, setPatient] = useState({
         name: '',
@@ -71,7 +71,7 @@ export const PatientAddScreen = () => {
             </div>
             <Form onSubmit={savePatient}>
                 <Row>
-                    <Col md={6} xs={12}>
+                    <Col md={6} xm={12}>
                         <Form.Group className="mb-3" controlId="name">
                             <Form.Label>Name</Form.Label>
                             <Form.Control

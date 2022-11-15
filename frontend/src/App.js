@@ -1,18 +1,18 @@
 import React, {useState, createContext} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {HomeScreen} from './components/screens/HomeScreen';
-import {PatientAddScreen} from './components/screens/PatientAddScreen';
-import {PatientsScreen} from './components/screens/PatientsScreen';
-import {PatientProfileScreen} from './components/screens/PatientProfileScreen';
-import {RegisterScreen} from './components/screens/RegisterScreen';
-import {LoginScreen} from './components/screens/LoginScreen';
-import {UserProfileScreen} from './components/screens/UserProfileScreen';
-import {TestsScreen} from './components/screens/TestsScreen';
-import {Header} from './components/Header';
-import {TestScreen} from './components/screens/TestScreen';
-import {DoctorsScreen} from './components/screens/DoctorsScreen';
-import {SendMessageScreen} from './components/screens/SendMessageScreen';
-import {MessagesScreen} from './components/screens/MessagesScreen';
+import {HomeScreen} from './screens/HomeScreen';
+import {NewPatientScreen} from './screens/NewPatientScreen';
+import {PatientsScreen} from './screens/PatientsScreen';
+import {PatientScreen} from './screens/PatientScreen';
+import {RegisterScreen} from './screens/RegisterScreen';
+import {LoginScreen} from './screens/LoginScreen';
+import {LoggedScreen} from './screens/LoggedScreen';
+import {TestsScreen} from './screens/TestsScreen';
+import {NavBar} from './components/NavBar';
+import {TestScreen} from './screens/TestScreen';
+import {DoctorsScreen} from './screens/DoctorsScreen';
+import {MessageScreen} from './screens/MessageScreen';
+import {MessagesScreen} from './screens/MessagesScreen';
 
 export const Context = createContext(null);
 
@@ -57,19 +57,19 @@ function App() {
             setId,
         }}>
             <BrowserRouter>
-                <Header/>
+                <NavBar/>
                 <Routes>
                     <Route path="/" element={<HomeScreen/>}/>
                     <Route path="/patients" element={<PatientsScreen/>}/>
-                    <Route path="/patients/:id" element={<PatientProfileScreen/>}/>
-                    <Route path="/add-patient" element={<PatientAddScreen/>}/>
+                    <Route path="/patients/:id" element={<PatientScreen/>}/>
+                    <Route path="/add-patient" element={<NewPatientScreen/>}/>
                     <Route path="/register" element={<RegisterScreen/>}/>
                     <Route path="/login" element={<LoginScreen/>}/>
-                    <Route path="/profile" element={<UserProfileScreen/>}/>
-                    <Route path="patients/:id/:test" element={<TestScreen/>}/>
-                    <Route path="patients/:id/tests" element={<TestsScreen/>}/>
+                    <Route path="/profile" element={<LoggedScreen/>}/>
+                    <Route path="tests/:test/:id" element={<TestScreen/>}/>
+                    <Route path="/tests/:id" element={<TestsScreen/>}/>
                     <Route path="/doctors" element={<DoctorsScreen/>}/>
-                    <Route path="/doctors/:id/message" element={<SendMessageScreen/>}/>
+                    <Route path="/doctors/:id" element={<MessageScreen/>}/>
                     <Route path="/messages" element={<MessagesScreen/>}/>
                 </Routes>
             </BrowserRouter>

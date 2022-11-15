@@ -1,17 +1,15 @@
 import React, {useContext, useEffect} from 'react';
-import {Container, Navbar, Nav} from 'react-bootstrap';
+import {Container, Nav, Navbar} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Context} from '../App';
 import {GiPlagueDoctorProfile} from 'react-icons/gi';
 
-export const Header = () => {
+export const NavBar = () => {
     const {userLog, setUserLog, loggedUser} = useContext(Context);
 
     useEffect(() => {
-        if (loggedUser) {
-            setUserLog(true);
-        }
-    }, [setUserLog, loggedUser]);
+        loggedUser && setUserLog(true);
+    });
 
     const logOut = () => {
         localStorage.removeItem("user");
@@ -36,7 +34,7 @@ export const Header = () => {
                                 <Nav.Link>Doctors</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/messages">
-                                <Nav.Link>All messages</Nav.Link>
+                                <Nav.Link>Messages</Nav.Link>
                             </LinkContainer>
                         </div>
                         {userLog ?

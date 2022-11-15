@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container} from 'react-bootstrap';
-import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
+import {ArcElement, Chart as ChartJS, Legend, Tooltip} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
-import {API_URL} from '../../utils/url';
+import {API_URL} from '../utils/url';
+import {HeaderText} from '../components/HeaderText';
 
 
 export const HomeScreen = () => {
@@ -33,7 +34,7 @@ export const HomeScreen = () => {
     };
 
     useEffect(() => {
-        getData()
+        getData();
     }, []);
 
 
@@ -45,9 +46,8 @@ export const HomeScreen = () => {
 
     return (
         <Container>
-            <h1 className="text-center p-2 mt-4 mb-4">Welcome to the App Doctor</h1>
-            <h2 className="text-center p-2 mt-4 mb-4">Simple application for patient management</h2>
-
+            <HeaderText header={'application for patient management'}/>
+            <p className="text-center">Entered into the database</p>
             <div style={{height: "60vh"}} className="chart">
 
                 <Pie data={data}
@@ -55,8 +55,6 @@ export const HomeScreen = () => {
                      height={50}
                      options={{maintainAspectRatio: false}}/>
             </div>
-
-
         </Container>
     );
 };
