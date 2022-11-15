@@ -1,8 +1,7 @@
 import express from 'express';
-import {getData} from '../controllers/homeController.js';
+import {getData} from '../controllers/home.controller.js';
 export const homeRoutes = express.Router();
 
-//GET DATA
 homeRoutes.get("/", getData);
 
 

@@ -1,16 +1,12 @@
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
-import {User} from '../models/UserModel.js';
-import {ValidationError} from './errorMiddleware.js';
+import {User} from '../models/user.js';
+import {ValidationError} from './error.middleware.js';
 
 export const protect = asyncHandler(async (req, res, next) => {
     let token;
 
-    if (
-        req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')
-
-    ) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -21,7 +17,6 @@ export const protect = asyncHandler(async (req, res, next) => {
             throw new ValidationError('Not authorized, token failed');
         }
     }
-
     if (!token) {
         res.status(401);
         throw new ValidationError('Not authorized, no token');
@@ -31,9 +26,9 @@ export const protect = asyncHandler(async (req, res, next) => {
 
 export const admin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
-        next()
+        next();
     } else {
-        res.status(401)
-        throw new ValidationError('Not authorized as an admin')
+        res.status(401);
+        throw new ValidationError('Not authorized as an admin');
     }
-}
+};
