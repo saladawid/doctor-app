@@ -13,49 +13,14 @@ import {TestScreen} from './screens/TestScreen';
 import {DoctorsScreen} from './screens/DoctorsScreen';
 import {MessageScreen} from './screens/MessageScreen';
 import {MessagesScreen} from './screens/MessagesScreen';
-
-export const Context = createContext(null);
+import {UserContext} from './context/UserContext';
 
 function App() {
     const loggedUser = JSON.parse(localStorage.getItem("user"));
     const [userLog, setUserLog] = useState(false);
-    const [patients, setPatients] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [resultInfo, setResultInfo] = useState(false);
-    const [disabledBtn, setDisabledBtn] = useState(true);
-    const [readOnly, setReadOnly] = useState(false);
-    const [editData, setEditData] = useState(true);
-    const [showModal, setShowModal] = useState(false);
-    const [id, setId] = useState('');
 
     return (
-        <Context.Provider value={{
-            userLog,
-            setUserLog,
-            patients,
-            setPatients,
-            users,
-            setUsers,
-            error,
-            setError,
-            resultInfo,
-            setResultInfo,
-            loading,
-            setLoading,
-            loggedUser,
-            disabledBtn,
-            setDisabledBtn,
-            readOnly,
-            setReadOnly,
-            editData,
-            setEditData,
-            showModal,
-            setShowModal,
-            id,
-            setId,
-        }}>
+        <UserContext.Provider value={{userLog, setUserLog, loggedUser}}>
             <BrowserRouter>
                 <NavBar/>
                 <Routes>
@@ -66,14 +31,14 @@ function App() {
                     <Route path="/register" element={<RegisterScreen/>}/>
                     <Route path="/login" element={<LoginScreen/>}/>
                     <Route path="/profile" element={<LoggedScreen/>}/>
-                    <Route path="tests/:test/:id" element={<TestScreen/>}/>
+                    <Route path="/tests/:test/:id" element={<TestScreen/>}/>
                     <Route path="/tests/:id" element={<TestsScreen/>}/>
                     <Route path="/doctors" element={<DoctorsScreen/>}/>
                     <Route path="/doctors/:id" element={<MessageScreen/>}/>
                     <Route path="/messages" element={<MessagesScreen/>}/>
                 </Routes>
             </BrowserRouter>
-        </Context.Provider>
+        </UserContext.Provider>
     );
 }
 

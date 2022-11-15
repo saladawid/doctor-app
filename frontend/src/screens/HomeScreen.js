@@ -34,9 +34,8 @@ export const HomeScreen = () => {
     };
 
     useEffect(() => {
-        getData();
+        (() => (getData()))();
     }, []);
-
 
     const getData = async () => {
         const res = await fetch(`${API_URL}api/home`);

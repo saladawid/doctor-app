@@ -73,7 +73,7 @@ export const MessagesScreen = () => {
         }));
     };
 
-    if (!loggedUser) return <AccessMessage/>;
+    if (!loggedUser) return <AccessMessage title={'ACCESS FOR LOGGED IN USERS'} path={'/login'} nameButton={'Log in'}/>;
     return (<Container>
             <HeaderText header={'messages'}/>
             <Notification error={error}/>

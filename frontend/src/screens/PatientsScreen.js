@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {forwardRef, useEffect, useState} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Button, Container, Table} from 'react-bootstrap';
@@ -61,7 +61,7 @@ export const PatientsScreen = () => {
         }
     };
 
-    if (!loggedUser) return <AccessMessage title={'ACCESS FOR LOGGED IN USERS'}/>;
+    if (!loggedUser) return <AccessMessage title={'ACCESS FOR LOGGED IN USERS'} path={'/login'} nameButton={'Log in'}/>;
     return (
         <Container fluid="md">
             <HeaderText header={'patient database'}/>

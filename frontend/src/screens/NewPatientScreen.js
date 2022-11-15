@@ -1,11 +1,17 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Alert, Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
-import {Link, useNavigate} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 import {API_URL} from '../utils/url';
-import {Context} from '../App';
+import axios from 'axios';
+import {handleError} from '../utils/handleErrors';
+import {AccessMessage} from '../components/AccessMessage';
+import {HeaderText} from '../components/HeaderText';
+import {ButtonNavigate} from '../components/ButtonNavigate';
+import {Notification} from '../components/Notification';
 
 export const NewPatientScreen = () => {
-    const {resultInfo, setResultInfo, error, setError, loggedUser} = useContext(Context);
+    const loggedUser = JSON.parse(localStorage.getItem("user"));
+
     const [patient, setPatient] = useState({
         name: '',
         surname: '',
@@ -13,62 +19,41 @@ export const NewPatientScreen = () => {
         dateOfAdmission: '',
         dateOfDischarge: '',
     });
+    const [error, setError] = useState('');
+    const [info, setInfo] = useState('');
+
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        setError(false);
         !loggedUser && navigate('/login');
     }, []);
 
     const savePatient = async (e) => {
         e.preventDefault();
-
-        const res = await fetch(`${API_URL}api/patients`, {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json', Authorization: 'Bearer ' + loggedUser.token,
-            }, body: JSON.stringify({
-                ...patient,
-            }),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-            setError(data.message);
-        } else {
-            setResultInfo(`${data.name} ${data.surname} has been added to patients database.`);
+        try {
+            const {data} = await axios.post(`${API_URL}api/patients`, {...patient}, {
+                headers: {
+                    Authorization: 'Bearer ' + loggedUser.token,
+                },
+            });
+            setInfo(`${data.name} ${data.surname} has been added to patients database.`);
             setTimeout(() => {
                 navigate("/patients");
-                setResultInfo(null);
             }, 900);
+        } catch (e) {
+            setError(handleError(e));
         }
     };
 
-    if (resultInfo) return (
-        <div className="d-flex align-items-center justify-content-center m-5">
-            <Card className="d-flex align-items-center justify-content-center">
-                <Card.Title className="m-3">{resultInfo}</Card.Title>
-                <Card.Body>
-                    <Link to="/patients">
-                        <Button variant="dark" className="mb-3">Database of Patients</Button>
-                    </Link>
-                </Card.Body>
-            </Card>
-        </div>
-    );
+    if (info) return <AccessMessage title={info} path={'/patients'} nameButton={'Back to database'}/>;
+
 
     return (
         <Container>
-            <h1 className="text-center p-2 mt-4 mb-4">Add new patient</h1>
-            <Link to="/patients">
-                <Button variant="dark" className="mb-3">Back to database</Button>
-            </Link>
-            <div className="text-center">
-                {error && <Alert variant="danger">
-                    {error}
-                </Alert>}
-            </div>
+            <HeaderText header={'Add new patient'}/>
+            <ButtonNavigate link={"/patients"} title={"Back to database"}/>
+            <Notification error={error}/>
             <Form onSubmit={savePatient}>
                 <Row>
                     <Col md={6} xm={12}>

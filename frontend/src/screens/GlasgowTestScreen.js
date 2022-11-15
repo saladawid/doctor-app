@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Container, Form} from 'react-bootstrap';
-import {API_URL} from '../utils/url';
 import axios from 'axios';
+import {API_URL} from '../utils/url';
+import {handleError} from '../utils/handleErrors';
 import {HeaderText} from '../components/HeaderText';
 import {ButtonNavigate} from '../components/ButtonNavigate';
 import {Notification} from '../components/Notification';
-import {handleError} from '../utils/handleErrors';
-
 
 export const GlasgowTestScreen = ({id, test}) => {
     const loggedUser = JSON.parse(localStorage.getItem("user"));
@@ -47,7 +46,6 @@ export const GlasgowTestScreen = ({id, test}) => {
             <HeaderText header={'Glasgow Coma Scale'}/>
             <ButtonNavigate link={`/patients/${id}`} title={"back to patient profile"}/>
             <Notification error={error} info={info}/>
-
             <Form onSubmit={saveTest}>
                 <Form.Group className="mb-3">
                     <Form.Label>Ocular response:</Form.Label>

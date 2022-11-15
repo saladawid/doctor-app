@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Table} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 import {API_URL} from '../utils/url';
+import {handleError} from '../utils/handleErrors';
 import {RemoveModal} from '../components/RemoveModal';
 import {AccessMessage} from '../components/AccessMessage';
-import axios from 'axios';
-import {handleError} from '../utils/handleErrors';
 import {SpinnerModal} from '../components/Spinner';
 import {HeaderText} from '../components/HeaderText';
 import {Notification} from '../components/Notification';
@@ -60,7 +60,7 @@ export const DoctorsScreen = () => {
         }
     };
 
-    if (!loggedUser) return <AccessMessage title={'ACCESS FOR LOGGED IN USERS'}/>;
+    if (!loggedUser) return <AccessMessage title={'ACCESS FOR LOGGED IN USERS'} path={'/login'} nameButton={'Log in'}/>;
     return (
         <Container fluid="md">
             <HeaderText header={'doctor database'}/>

@@ -29,7 +29,7 @@ export const RegisterScreen = () => {
         }
     };
 
-    if (info) return <AccessMessage title={info}/>;
+    if (info) return <AccessMessage title={info} path={'/login'} nameButton={'Log in'}/>;
 
     return (
         <Container>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
-import {API_URL} from '../utils/url';
 import axios from 'axios';
+import {API_URL} from '../utils/url';
 import {handleError} from '../utils/handleErrors';
 import {Notification} from '../components/Notification';
 import {HeaderText} from '../components/HeaderText';
@@ -57,7 +57,7 @@ export const LoggedScreen = () => {
 
     const editUser = (e) => {
         e.preventDefault();
-        setReadOnly(readOnly ? false : true);
+        setReadOnly(!readOnly);
         setError('');
         setInfo('');
         (() => (getLoggedUser()))();
@@ -68,7 +68,6 @@ export const LoggedScreen = () => {
             <HeaderText header={'user profile'}/>
             <ButtonNavigate link={"/"} title={"back to main page"}/>
             <Notification error={error} info={info}/>
-
             <Form onSubmit={updateUser}>
                 <Row>
                     <Col md={6} xs={12}>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Container, Form} from 'react-bootstrap';
-import {API_URL} from '../utils/url';
 import axios from 'axios';
+import {API_URL} from '../utils/url';
 import {handleError} from '../utils/handleErrors';
 import {HeaderText} from '../components/HeaderText';
 import {ButtonNavigate} from '../components/ButtonNavigate';
@@ -25,7 +25,6 @@ export const HasBledTestScreen = ({id, test}) => {
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
     const [readOnly, setReadOnly] = useState(false);
-
 
     const checkAnswer = (e) => setAnswerTest(answerTest => ({
         ...answerTest,

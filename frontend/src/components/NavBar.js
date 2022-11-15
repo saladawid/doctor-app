@@ -1,11 +1,11 @@
 import React, {useContext, useEffect} from 'react';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Context} from '../App';
+import {UserContext} from '../context/UserContext';
 import {GiPlagueDoctorProfile} from 'react-icons/gi';
 
 export const NavBar = () => {
-    const {userLog, setUserLog, loggedUser} = useContext(Context);
+    const {userLog, setUserLog, loggedUser} = useContext(UserContext);
 
     useEffect(() => {
         loggedUser && setUserLog(true);

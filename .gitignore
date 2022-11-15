@@ -3,6 +3,7 @@ node_modules/
 /frontend/node_modules/
 .envgit
 .env
+.idea
 
 # dependencies
 /node_modules

@@ -1,15 +1,17 @@
 import React, {useContext, useState} from 'react';
-import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
-import {Context} from '../App';
+import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import {API_URL} from '../utils/url';
 import axios from 'axios';
 import {HeaderText} from '../components/HeaderText';
 import {ButtonNavigate} from '../components/ButtonNavigate';
 import {Notification} from '../components/Notification';
+import {UserContext} from '../context/UserContext';
+import {handleError} from '../utils/handleErrors';
 
 export const LoginScreen = () => {
-    const {setUserLog} = useContext(Context);
+    const {setUserLog} = useContext(UserContext);
+
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -30,7 +32,7 @@ export const LoginScreen = () => {
             setUserLog(true);
             navigate('/');
         } catch (e) {
-            setError(e.response.data.message);
+            setError(handleError(e));
         }
     };
 
@@ -39,7 +41,6 @@ export const LoginScreen = () => {
             <HeaderText header={'log in'}/>
             <ButtonNavigate link={"/"} title={"Back to main page"}/>
             <Notification error={error}/>
-
             <Form onSubmit={loginUser}>
                 <Row>
                     <Col md={6}>

@@ -10,5 +10,5 @@ export const TableHead = ({th_1, th_2, th_3, th_4}) => {
             <th>{th_4}</th>
         </tr>
         </thead>
-    )
+    );
 };
