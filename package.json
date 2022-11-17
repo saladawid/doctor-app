@@ -21,7 +21,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
-    "mongoose": "^6.3.8"
+    "mongoose": "^6.3.8",
+    "pdfkit": "^0.13.0"
   },
   "devDependencies": {
     "jest": "^29.2.2"

@@ -23,4 +23,8 @@ export const dateAndHour = () => {
     return `${newDate} ${hour}`;
 };
 
+export const currentDate = () => {
+    return moment().format('YYYY-MM-DD');
+};
+
 

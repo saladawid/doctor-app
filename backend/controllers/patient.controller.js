@@ -1,7 +1,10 @@
 import {Patient} from '../models/patient.js';
+import {Test} from '../models/test.js';
 import asyncHandler from "express-async-handler";
 import {ValidationError} from '../middleware/error.middleware.js';
 import {date} from '../utils/currentDate.js';
+import {createPDF} from '../utils/createPDF.js';
+
 
 export const savePatient = asyncHandler(async (req, res) => {
     const {name, surname, dateOfAdmission} = req.body;
@@ -84,7 +87,6 @@ export const getPatients = asyncHandler(async (req, res) => {
         res.status(404);
         throw new ValidationError('Patients not found');
     }
-
 });
 
 export const getPatient = asyncHandler(async (req, res) => {
@@ -96,5 +98,19 @@ export const getPatient = asyncHandler(async (req, res) => {
         res.status(404);
         throw new ValidationError('Patient not found');
     }
+});
+
+export const getSummary = asyncHandler(async (req, res) => {
+    const patient = await Patient.findById({_id: req.params.id}).populate('user', 'email').exec();
+    const tests = await Test.find({patientId: req.params.id}).populate('patientId').exec();
+
+        const data = {
+            patient,
+            tests,
+            user: req.user.email,
+        };
+        const stream = res.writeHead(200, {
+            'Content-Type': 'application/pdf',
+        });createPDF(data, (chunk) => stream.write(chunk), () => stream.end());
 });
 

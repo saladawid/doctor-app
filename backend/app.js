@@ -17,12 +17,13 @@ const app = express();
 
 app.use(cors({
     origin: config.cors,
+    exposedHeaders: 'Authorization'
 }));
 
 app.use(express.json());
 
 app.use('/api/home', homeRoutes);
-app.use('/api/patients', protect, patientRoutes);
+app.use('/api/patients',protect, patientRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/messages', protect, messageRoutes);
 app.use('/api/tests', protect, testRoutes);
