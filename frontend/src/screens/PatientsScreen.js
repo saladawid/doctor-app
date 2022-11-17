@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Button, Container, Table} from 'react-bootstrap';
@@ -25,7 +25,7 @@ export const PatientsScreen = () => {
 
     useEffect(() => {
         (() => (getPatients()))();
-    }, []);
+    }, [query]);
 
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
@@ -33,7 +33,7 @@ export const PatientsScreen = () => {
     const getPatients = async () => {
         try {
             setLoading(true);
-            const {data} = await axios.get(`${API_URL}api/patients`, {
+            const {data} = await axios.get(`${API_URL}api/patients?q=${query}`, {
                 headers: {
                     Authorization: 'Bearer ' + loggedUser.token,
                 },
@@ -73,7 +73,7 @@ export const PatientsScreen = () => {
                 <Table className="mt-5" size="sm" responsive="md">
                     <TableHead th_1={'No'} th_2={'Name'} th_3={'Surname'} th_4={'Patient added by'}/>
                     <tbody>
-                    {patients.filter((user) => user.surname.toLowerCase().includes(query)).map((patient, index) => (
+                    {patients.filter((patient) => ['name', 'surname'].some((key) => patient[key].toLowerCase().includes(query))).map((patient, index) => (
                         <tr className="align-text-bottom" key={patient._id}>
                             <td>{index + 1}</td>
                             <td>{patient.name}</td>

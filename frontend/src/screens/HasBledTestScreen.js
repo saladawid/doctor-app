@@ -40,7 +40,7 @@ export const HasBledTestScreen = ({id, test}) => {
                 },
             });
             setInfo(`The ${data.name} has been added to the patient`);
-            setError('');
+            setError(null);
             setReadOnly(true);
         } catch (e) {
             setError(handleError(e));
@@ -52,7 +52,6 @@ export const HasBledTestScreen = ({id, test}) => {
             <HeaderText header={'Has Bled Scale'}/>
             <ButtonNavigate link={`/patients/${id}`} title={"back to patient profile"}/>
             <Notification error={error} info={info}/>
-
             <Form onSubmit={saveTest}>
                 <Form.Group className="mb-3">
                     <Form.Label>Hypertension: Uncontrolled, >160 mmHg systolic</Form.Label>

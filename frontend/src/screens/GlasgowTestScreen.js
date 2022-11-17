@@ -34,8 +34,8 @@ export const GlasgowTestScreen = ({id, test}) => {
                 },
             });
             setInfo(`The ${data.name} has been added to the patient`);
-            setError('');
             setReadOnly(true);
+            setError(null)
         } catch (e) {
             setError(handleError(e));
         }

@@ -1,4 +1,4 @@
-import React, {useState, createContext} from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HomeScreen} from './screens/HomeScreen';
 import {NewPatientScreen} from './screens/NewPatientScreen';

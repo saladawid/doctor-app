@@ -1,12 +1,13 @@
-import React, { useEffect, useState} from 'react';
-import { Button, Col, Container, Form, Row} from 'react-bootstrap';
-import { useNavigate, useParams} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import {useNavigate, useParams} from 'react-router-dom';
 import {API_URL} from '../utils/url';
 import axios from 'axios';
 import {handleError} from '../utils/handleErrors';
 import {HeaderText} from '../components/HeaderText';
 import {ButtonNavigate} from '../components/ButtonNavigate';
 import {Notification} from '../components/Notification';
+import fileDownload from 'js-file-download';
 
 export const PatientScreen = () => {
     const loggedUser = JSON.parse(localStorage.getItem("user"));
@@ -43,7 +44,7 @@ export const PatientScreen = () => {
         }
     };
 
-    const savePatient = async (e) => {
+    const updatePatient = async (e) => {
         e.preventDefault();
         try {
             const {data} = await axios.put(`${API_URL}api/patients/${id}`, {...patient}, {
@@ -55,17 +56,34 @@ export const PatientScreen = () => {
             setError('');
             setInfo(data.message);
             setReadOnly(true);
+            await getPatient();
         } catch (e) {
             setError(handleError(e));
         }
     };
 
-    const editPatient = (e) => {
+    const editPatient = async (e) => {
         e.preventDefault();
         setReadOnly(readOnly ? false : true);
         setError('');
         setInfo('');
-        (() => (getPatient()))();
+        await getPatient();
+    };
+
+    const createPDF = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.get(`${API_URL}api/patients/${id}/summary`, {
+                responseType: 'blob',
+                headers: {
+                    Authorization: 'Bearer ' + loggedUser.token,
+                },
+            });
+            fileDownload(res.data, `${patient.name}_${patient.surname}_summary.pdf`);
+        } catch (e) {
+            setError(handleError(e));
+        }
+
     };
 
     const openTest = async (e) => {
@@ -89,7 +107,7 @@ export const PatientScreen = () => {
             <Notification error={error} info={info}/>
 
             <Row>
-                <Form onSubmit={savePatient}>
+                <Form onSubmit={updatePatient}>
                     <Col md={4} sm={12}>
                         <Form.Select as="button" className="text-center p-2 my-2 bg-dark text-white" size="md"
                                      onChange={openTest}
@@ -167,9 +185,13 @@ export const PatientScreen = () => {
                         </Col>
                     </Row>
                     <Button type="submit" variant="dark" className="me-3" disabled={readOnly}>Save</Button>
-                    <Button type="submit" variant="dark"
+                    <Button type="submit" variant="dark" className="me-3"
                             onClick={editPatient}>{readOnly ? 'Edit data' : 'Cancel'}</Button>
+                    <Button type="submit" variant="primary" onClick={(e) => createPDF(e)}>Create hospital
+                        discharge</Button>
                 </Form>
+
+
             </Row>
         </Container>
     );
