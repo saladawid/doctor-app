@@ -8,6 +8,8 @@
 #### Adding, editing, removing a patient.
 #### Adding a test to a patient.
 #### Send messages to a users
+#### Send messages to a users
+#### Creating a pdf summary for a patient
 
 ## Used Technologies
 #### Node
