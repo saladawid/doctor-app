@@ -106,8 +106,8 @@ export const PatientScreen = () => {
             <ButtonNavigate link={"/patients"} title={"back to database"}/>
             <Notification error={error} info={info}/>
 
-            <Row>
-                <Form onSubmit={updatePatient}>
+            <Form onSubmit={updatePatient}>
+                <Row>
                     <Col md={4} sm={12}>
                         <Form.Select as="button" className="text-center p-2 my-2 bg-dark text-white" size="md"
                                      onChange={openTest}
@@ -118,81 +118,80 @@ export const PatientScreen = () => {
                             <option value="tests-results">Test Results</option>
                         </Form.Select>
                     </Col>
-                    <Row>
-                        <Col md={6} xs={12}>
-                            <Form.Group className="mb-3" controlId="name">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    readOnly={readOnly}
-                                    value={patient.name ?? ''}
-                                    onChange={e => setPatient(patient => ({
-                                        ...patient,
-                                        name: e.target.value,
-                                    }))}/>
-                            </Form.Group>
-                        </Col>
-                        <Col md={6} xs={12}>
-                            <Form.Group className="mb-3" controlId="surname">
-                                <Form.Label>Surname</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    readOnly={readOnly}
-                                    value={patient.surname ?? ''}
-                                    onChange={e => setPatient(patient => ({
-                                        ...patient,
-                                        surname: e.target.value,
-                                    }))}/>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Form.Group className="mb-3" controlId="diagnosis">
-                        <Form.Label>Diagnosis</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            rows={3}
-                            readOnly={readOnly}
-                            value={patient.diagnosis ?? ''}
-                            onChange={e => setPatient(patient => ({
-                                ...patient,
-                                diagnosis: e.target.value,
-                            }))}/>
-                    </Form.Group>
-                    <Row>
-                        <Col>
-                            <Form.Group className="mb-3" controlId="dateOfAdmission">
-                                <Form.Label>Date of admission</Form.Label>
-                                <Form.Control type="date"
-                                              readOnly={readOnly}
-                                              value={patient.dateOfAdmission ?? ''}
-                                              onChange={e => setPatient(patient => ({
-                                                  ...patient,
-                                                  dateOfAdmission: e.target.value,
-                                              }))}/>
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group className="mb-3" controlId="dateOfDischarge">
-                                <Form.Label>Date of discharge</Form.Label>
-                                <Form.Control type="date"
-                                              readOnly={readOnly}
-                                              value={patient.dateOfDischarge ?? ''}
-                                              onChange={e => setPatient(patient => ({
-                                                  ...patient,
-                                                  dateOfDischarge: e.target.value,
-                                              }))}/>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Button type="submit" variant="dark" className="me-3" disabled={readOnly}>Save</Button>
-                    <Button type="submit" variant="dark" className="me-3"
+                </Row>
+                <Row>
+                    <Col md={6} xs={12}>
+                        <Form.Group className="mb-3" controlId="name">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                readOnly={readOnly}
+                                value={patient.name ?? ''}
+                                onChange={e => setPatient(patient => ({
+                                    ...patient,
+                                    name: e.target.value,
+                                }))}/>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="surname">
+                            <Form.Label>Surname</Form.Label>
+                            <Form.Control
+                                type="text"
+                                readOnly={readOnly}
+                                value={patient.surname ?? ''}
+                                onChange={e => setPatient(patient => ({
+                                    ...patient,
+                                    surname: e.target.value,
+                                }))}/>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Form.Group className="mb-3" controlId="diagnosis">
+                    <Form.Label>Diagnosis</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        rows={3}
+                        readOnly={readOnly}
+                        value={patient.diagnosis ?? ''}
+                        onChange={e => setPatient(patient => ({
+                            ...patient,
+                            diagnosis: e.target.value,
+                        }))}/>
+                </Form.Group>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="dateOfAdmission">
+                            <Form.Label>Date of admission</Form.Label>
+                            <Form.Control type="date"
+                                          readOnly={readOnly}
+                                          value={patient.dateOfAdmission ?? ''}
+                                          onChange={e => setPatient(patient => ({
+                                              ...patient,
+                                              dateOfAdmission: e.target.value,
+                                          }))}/>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="dateOfDischarge">
+                            <Form.Label>Date of discharge</Form.Label>
+                            <Form.Control type="date"
+                                          readOnly={readOnly}
+                                          value={patient.dateOfDischarge ?? ''}
+                                          onChange={e => setPatient(patient => ({
+                                              ...patient,
+                                              dateOfDischarge: e.target.value,
+                                          }))}/>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <div className="d-flex">
+                    <Button className="me-sm-2" type="submit" variant="dark" disabled={readOnly}>Save</Button>
+                    <Button  className="me-sm-2" type="submit" variant="dark"
                             onClick={editPatient}>{readOnly ? 'Edit data' : 'Cancel'}</Button>
-                    <Button type="submit" variant="primary" onClick={(e) => createPDF(e)}>Create hospital
-                        discharge</Button>
-                </Form>
-
-
-            </Row>
+                    <Button className="me-sm-2" type="submit" variant="primary" onClick={(e) => createPDF(e)}>PDF Summary</Button>
+                </div>
+            </Form>
         </Container>
     );
 };

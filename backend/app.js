@@ -23,12 +23,11 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/home', homeRoutes);
-app.use('/api/patients',protect, patientRoutes);
+app.use('/api/patients', protect, patientRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/messages', protect, messageRoutes);
 app.use('/api/tests', protect, testRoutes);
 
-// --------------------------deployment------------------------------
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
@@ -42,7 +41,6 @@ if (process.env.NODE_ENV === "production") {
         res.send("API is running..");
     });
 }
-// --------------------------deployment------------------------------
 
 app.use(notFound);
 app.use(handleError);
